@@ -1,13 +1,18 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.viewsets import ModelViewSet
 from rest_framework import filters
 
+from base.mixins import ActionSerializerMixin
 from messenger.filters import MessageFilter
 from messenger.models import Message
 from messenger.serializers import MessageSerializer, MessageDetailSerializer
 
 
-class MessageViewSet(ModelViewSet):
+class MessageViewSet(
+    ActionSerializerMixin,
+    ModelViewSet
+):
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
@@ -16,13 +21,12 @@ class MessageViewSet(ModelViewSet):
     search_fields = ["tags__name", "user__username", "text"]
     ordering_fields = ["created_at"]
     filterset_class = MessageFilter
+    pagination_class = LimitOffsetPagination
 
-    def get_serializer_class(self):
-        match self.action:
-            case "retrieve":
-                return MessageDetailSerializer
-
-        return MessageSerializer
+    serializer_class = MessageSerializer
+    action_serializers = {
+        "retrieve": MessageDetailSerializer
+    }
 
     def get_queryset(self):
         queryset = Message.objects.all()
