@@ -1,6 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
 
-
 from messenger.models import Message
 from messenger.serializers import MessageSerializer, MessageDetailSerializer
 

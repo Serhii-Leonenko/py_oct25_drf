@@ -13,7 +13,13 @@ class Message(models.Model):
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="messages"
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="messages"
+    )
+    tags = models.ManyToManyField(
+        Tag,
+        related_name="messages"
     )
 
     def __str__(self) -> str:
