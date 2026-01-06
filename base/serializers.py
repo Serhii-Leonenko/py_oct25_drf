@@ -11,4 +11,4 @@ class CreatableSlugRelatedField(SlugRelatedField):
             # self.fail('does_not_exist', slug_name=self.slug_field, value=smart_str(data))
             return queryset.create(**{self.slug_field: data})
         except (TypeError, ValueError):
-            self.fail('invalid')
+            self.fail("invalid")

@@ -22,10 +22,10 @@ INSTALLED_APPS = [
     # third-party apps
     "rest_framework",
     "debug_toolbar",
-    'django_filters',
+    "django_filters",
     # local apps
     "messenger",
-    "users"
+    "users",
 ]
 
 MIDDLEWARE = [
@@ -114,5 +114,13 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication"
-    ]
+    ],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.FormParser",
+        "rest_framework.parsers.MultiPartParser",
+    ],
 }
+
+MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_URL = "media/"

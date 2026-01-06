@@ -13,9 +13,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ("id", "username", "password", "password2", "is_staff")
         read_only_fields = ("id", "is_staff")
         extra_kwargs = {
-            "password": {
-                "write_only": True
-            },
+            "password": {"write_only": True},
         }
 
     def validate(self, attrs):
@@ -24,9 +22,7 @@ class UserSerializer(serializers.ModelSerializer):
 
         if password != password2:
             raise ValidationError(
-                {
-                    "password2": "Password and password2 are not the same"
-                }
+                {"password2": "Password and password2 are not the same"}
             )
 
         return attrs

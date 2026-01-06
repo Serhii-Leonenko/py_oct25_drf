@@ -9,5 +9,5 @@ app_name = "users"
 router = DefaultRouter()
 router.register("users", UserViewSet, basename="user")
 
-urlpatterns = [path('token-auth/', views.obtain_auth_token)]
+urlpatterns = [path("token-auth/", views.obtain_auth_token)]
 urlpatterns += router.urls

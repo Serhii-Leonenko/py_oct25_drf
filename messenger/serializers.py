@@ -17,27 +17,13 @@ class UserSerializer(serializers.ModelSerializer):
 
 class MessageSerializer(serializers.ModelSerializer):
     tags = CreatableSlugRelatedField(
-        slug_field="name",
-        many=True,
-        queryset=Tag.objects.all()
+        slug_field="name", many=True, queryset=Tag.objects.all()
     )
 
     class Meta:
         model = Message
-        fields = (
-            "id",
-            "created_at",
-            "user",
-            "text",
-            "text_preview",
-            "tags"
-        )
-        read_only_fields = (
-            "id",
-            "user",
-            "text_preview",
-            "created_at"
-        )
+        fields = ("id", "created_at", "user", "text", "text_preview", "tags", "image")
+        read_only_fields = ("id", "user", "text_preview", "created_at")
         extra_kwargs = {"text": {"write_only": True}}
 
 

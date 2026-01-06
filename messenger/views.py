@@ -10,14 +10,11 @@ from messenger.models import Message
 from messenger.serializers import MessageSerializer, MessageDetailSerializer
 
 
-class MessageViewSet(
-    ActionSerializerMixin,
-    ModelViewSet
-):
+class MessageViewSet(ActionSerializerMixin, ModelViewSet):
     filter_backends = [
         filters.SearchFilter,
         filters.OrderingFilter,
-        DjangoFilterBackend
+        DjangoFilterBackend,
     ]
     search_fields = ["tags__name", "user__username", "text"]
     ordering_fields = ["created_at"]
@@ -25,9 +22,7 @@ class MessageViewSet(
     pagination_class = LimitOffsetPagination
 
     serializer_class = MessageSerializer
-    action_serializers = {
-        "retrieve": MessageDetailSerializer
-    }
+    action_serializers = {"retrieve": MessageDetailSerializer}
 
     permission_classes = [IsAuthenticated]
 
@@ -42,3 +37,6 @@ class MessageViewSet(
                 queryset = queryset.select_related("user")
 
         return queryset
+
+
+# TODO implement /api/messages/<id>/like/

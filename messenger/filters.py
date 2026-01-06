@@ -5,7 +5,7 @@ from messenger.models import Message
 
 
 class MessageFilter(filters.FilterSet):
-    tags = NumberInFilter(field_name='tags__id')
+    tags = NumberInFilter(field_name="tags__id")
     created_at = filters.DateFromToRangeFilter()
 
     class Meta:

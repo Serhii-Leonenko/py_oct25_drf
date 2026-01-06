@@ -4,15 +4,14 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('messenger', '0003_message_user'),
+        ("messenger", "0003_message_user"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='message',
-            name='tags',
-            field=models.ManyToManyField(related_name='messages', to='messenger.tag'),
+            model_name="message",
+            name="tags",
+            field=models.ManyToManyField(related_name="messages", to="messenger.tag"),
         ),
     ]
