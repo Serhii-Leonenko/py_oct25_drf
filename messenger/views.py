@@ -50,6 +50,7 @@ class MessageViewSet(ActionSerializerMixin, ModelViewSet):
     def toggle_like(self, request, pk=None):
         message = self.get_object()
         user = request.user
+
         if message.likes.filter(id=user.id).exists():
             message.likes.remove(user)
             liked = False
@@ -58,6 +59,10 @@ class MessageViewSet(ActionSerializerMixin, ModelViewSet):
             liked = True
 
         return Response(
-            {"id": message.id, "is_liked": liked, "likes_count": message.likes.count()},
+            {
+                "id": message.id,
+                "is_liked": liked,
+                "likes_count": message.likes.count()
+            },
             status=status.HTTP_200_OK,
         )

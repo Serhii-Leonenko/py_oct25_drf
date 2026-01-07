@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     "rest_framework",
     "debug_toolbar",
     "django_filters",
+    "drf_spectacular",
     # local apps
     "messenger",
     "users",
@@ -121,7 +122,15 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.FormParser",
         "rest_framework.parsers.MultiPartParser",
     ],
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
 }
 
 MEDIA_ROOT = BASE_DIR / "media"
 MEDIA_URL = "media/"
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'OUR API',
+    'DESCRIPTION': 'Best API',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
