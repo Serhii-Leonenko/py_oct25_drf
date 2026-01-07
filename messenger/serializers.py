@@ -55,3 +55,9 @@ class MessageDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = Message
         fields = ("id", "created_at", "text", "user", "tags", "likes")
+
+
+class MessageLikeResponseSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    is_liked = serializers.BooleanField()
+    likes_count = serializers.IntegerField()

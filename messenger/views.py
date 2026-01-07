@@ -1,4 +1,5 @@
 from django_filters.rest_framework import DjangoFilterBackend
+from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import action
 from rest_framework.pagination import LimitOffsetPagination
 from rest_framework.permissions import IsAuthenticated
@@ -9,7 +10,7 @@ from rest_framework import filters, status
 from base.mixins import ActionSerializerMixin
 from messenger.filters import MessageFilter
 from messenger.models import Message
-from messenger.serializers import MessageSerializer, MessageDetailSerializer
+from messenger.serializers import MessageSerializer, MessageDetailSerializer, MessageLikeResponseSerializer
 
 
 class MessageViewSet(ActionSerializerMixin, ModelViewSet):
@@ -42,6 +43,14 @@ class MessageViewSet(ActionSerializerMixin, ModelViewSet):
 
         return queryset
 
+    @extend_schema(
+        request=None,
+        responses={
+            200: MessageLikeResponseSerializer
+        },
+        description="Toggle like/unlike for a specific message.",
+        summary="Toggle like"
+    )
     @action(
         methods=["POST"],
         detail=True,
