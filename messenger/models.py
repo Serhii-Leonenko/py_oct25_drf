@@ -24,7 +24,7 @@ class Message(models.Model):
     )
 
     def __str__(self) -> str:
-        return self.text
+        return self.text_preview
 
     @property
     def text_preview(self) -> str:
