@@ -1,3 +1,5 @@
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_spectacular.utils import extend_schema
 from rest_framework.decorators import action
@@ -13,6 +15,7 @@ from messenger.models import Message
 from messenger.serializers import MessageSerializer, MessageDetailSerializer, MessageLikeResponseSerializer
 
 
+@method_decorator(cache_page(60 * 15, key_prefix="messages"), name="list")
 class MessageViewSet(ActionSerializerMixin, ModelViewSet):
     filter_backends = [
         filters.SearchFilter,
@@ -42,6 +45,10 @@ class MessageViewSet(ActionSerializerMixin, ModelViewSet):
                 queryset = queryset.prefetch_related("likes", "tags")
 
         return queryset
+
+    # @method_decorator(cache_page(60 * 15))
+    # def list(self, request, *args, **kwargs):
+    #     return super().list(request, *args, **kwargs)
 
     @extend_schema(
         request=None,
